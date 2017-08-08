@@ -1,23 +1,42 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import { StackNavigator } from "react-navigation";
+import { Root } from "native-base"; // For Toast component
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
-    );
-  }
-}
+import LogInScreen from './components/LogInScreen';
+import SignUpScreen from './components/SignUpScreen';
+import MainScreenNavigator from './components/MainScreenNavigator';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+import { ApolloProvider, createNetworkInterface, ApolloClient } from 'react-apollo';
+
+const networkInterface = createNetworkInterface({
+  uri: 'https://api.graph.cool/simple/v1/cj5j28ocpc73v0122wya21dbq'
 });
+const client = new ApolloClient({
+  networkInterface
+});
+
+const StackNavigatorApp = StackNavigator({
+  SignUp: { screen: SignUpScreen },
+  //CheckEmail: { screen: CheckEmailScreen },
+  LogIn: { screen: LogInScreen },
+  // CreateAccount: { screen: CreateAccountScreen },
+  // CreateProfile: { screen: CreateProfileScreen },
+  // ForgotPassword: { screen: ForgotPasswordScreen },
+
+  Main: { screen: MainScreenNavigator }
+
+}, {
+  initialRouteName: "SignUp",
+  headerMode: "none"
+});
+
+const ApolloStackNavigatorApp = () => (
+  <ApolloProvider client={client}>
+    <Root>
+      <StackNavigatorApp />
+    </Root>
+  </ApolloProvider>
+);
+
+export default ApolloStackNavigatorApp;
