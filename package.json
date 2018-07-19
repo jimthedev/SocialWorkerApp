@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "react-native-scripts": "1.1.0",
-    "jest-expo": "~19.0.0",
-    "react-test-renderer": "16.0.0-alpha.12"
+    "jest-expo": "^28.0.0",
+    "react-native-scripts": "^1.14.0",
+    "react-test-renderer": "^16.4.1"
   },
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
@@ -19,15 +19,15 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "@expo/vector-icons": "^5.0.0",
-    "apollo-client": "^1.8.0",
-    "expo": "^19.0.0",
-    "lodash": "^4.17.4",
+    "@expo/vector-icons": "^6.3.1",
+    "apollo-client": "^1.9.3",
+    "expo": "^28.0.0",
+    "lodash": "^4.17.10",
     "native-base": "^2.3.1",
-    "react": "16.0.0-alpha.12",
-    "react-apollo": "^1.4.10",
-    "react-native": "^0.46.1",
-    "react-router-native": "^4.1.1",
+    "react": "^16.4.1",
+    "react-apollo": "^1.4.16",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-28.0.0.tar.gz",
+    "react-router-native": "^4.3.0",
     "validate.js": "^0.11.1"
   }
 }
