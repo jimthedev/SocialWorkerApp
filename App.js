@@ -9,7 +9,14 @@ import {
   View
 } from "react-native";
 
-import { NativeRouter, Redirect, Route, Link, withRouter } from "react-router-native";
+import {
+  NativeRouter,
+  Redirect,
+  Route,
+  Link,
+  Switch,
+  withRouter
+} from "react-router-native";
 
 import {
   Body,
@@ -30,14 +37,10 @@ import YourResourcesAddScreen from "./components/YourResourcesAddScreen";
 import YourResourcesViewScreen from "./components/YourResourcesViewScreen";
 import YourResourceViewScreen from "./components/YourResourceViewScreen";
 
-import {
-  ApolloProvider,
-  createNetworkInterface,
-} from "react-apollo";
+import { ApolloProvider, createNetworkInterface } from "react-apollo";
 
 // Imported 1.8.0 until resolved: https://github.com/apollographql/react-apollo/issues/61
-import ApolloClient from 'apollo-client';
-
+import ApolloClient from "apollo-client";
 
 // NETWORK
 const networkInterface = createNetworkInterface({
@@ -57,9 +60,9 @@ const styles = {
     // borderLeftWidth: 4
   },
   tab: {
-    flex:1,
-    alignSelf:'stretch',
-    justifyContent:'center'
+    flex: 1,
+    alignSelf: "stretch",
+    justifyContent: "center"
   }
 };
 class TabList extends React.Component {
@@ -73,24 +76,17 @@ class TabList extends React.Component {
       });
     });
 
-    return (
-      <Footer style={styles.tabs}>
-        {children}
-      </Footer>
-    );
+    return <Footer style={styles.tabs}>{children}</Footer>;
   }
 }
 
-
 class Tab extends React.Component {
   render() {
-    const {route, label} = this.props;
+    const { route, label } = this.props;
     return (
       <FooterTab>
-        <Link to={route} underlayColor="transparent" style={{flex:1}}>
-          <View style={{flex:1}}>
-            {this.props.children}
-          </View>
+        <Link to={route} underlayColor="transparent" style={{ flex: 1 }}>
+          <View style={{ flex: 1 }}>{this.props.children}</View>
         </Link>
       </FooterTab>
     );
@@ -100,20 +96,14 @@ class Tab extends React.Component {
 class TabPanels extends React.Component {
   render() {
     return (
-      <Container style={styles.tabPanels}>
-        {this.props.children}
-      </Container>
+      <Container style={styles.tabPanels}>{this.props.children}</Container>
     );
   }
 }
 
 class TabPanel extends React.Component {
   render() {
-    return (
-      <Container>
-        {this.props.children}
-      </Container>
-    );
+    return <Container>{this.props.children}</Container>;
   }
 }
 
@@ -141,19 +131,17 @@ class Tabs extends React.Component {
       }
     });
 
-    return (
-      <Container>
-        {children}
-      </Container>
-    );
+    return <Container>{children}</Container>;
   }
 }
 
 const RouteMatch = () => (
-  <View><Text>Matched route</Text></View>
-)
+  <View>
+    <Text>Matched route</Text>
+  </View>
+);
 
-const FeedPanel = (props) => (
+const FeedPanel = props => (
   <TabPanel>
     <Container>
       <Header>
@@ -161,49 +149,73 @@ const FeedPanel = (props) => (
           <Text>Feed</Text>
         </Body>
       </Header>
-      <Content style={{
-        backgroundColor: '#fc0'
-      }}>
-        <View style={{flex:1}}>
+      <Content
+        style={{
+          backgroundColor: "#fc0"
+        }}
+      >
+        <View style={{ flex: 1 }}>
           <Text>Feed text is ac</Text>
-          <Link to="/app/profile"><Text>Profile</Text></Link>
+          <Link to="/app/profile">
+            <Text>Profile</Text>
+          </Link>
         </View>
       </Content>
     </Container>
   </TabPanel>
-)
+);
 
-const AddResourceScreen = (props) => (
+const AddResourceScreen = props => (
   <Container>
     <Header>
       <Body>
         <Text>Add Resource</Text>
       </Body>
     </Header>
-    <Content style={{
-      backgroundColor: '#fe6'
-    }}>
-      <View style={{flex:1}}>
+    <Content
+      style={{
+        backgroundColor: "#fe6"
+      }}
+    >
+      <View style={{ flex: 1 }}>
         <Text>Add Resources text is ac</Text>
         <Route path="/app/resources" component={RouteMatch} />
-        <Link to="/app/resources/your"><Text>Your Resources</Text></Link>
-        <Button onPress={() => {props.history.goBack()}}><Text>Back</Text></Button>
+        <Link to="/app/resources/your">
+          <Text>Your Resources</Text>
+        </Link>
+        <Button
+          onPress={() => {
+            props.history.goBack();
+          }}
+        >
+          <Text>Back</Text>
+        </Button>
       </View>
     </Content>
   </Container>
-)
+);
 
-const ResourcesPanel = (props) => (
+const ResourcesPanel = props => (
   <TabPanel>
-    <Route path="/app/resources/your" exact render={(props) => (
-      <YourResourcesViewScreen {...props} />
-    )}/>
-    <Route path="/app/resources/your/add" exact component={YourResourcesAddScreen} />
-    <Route path="/app/resources/your/view/:id" exact component={YourResourceViewScreen} />
+    <Route
+      path="/app/resources/your"
+      exact
+      render={props => <YourResourcesViewScreen {...props} />}
+    />
+    <Route
+      path="/app/resources/your/add"
+      exact
+      component={YourResourcesAddScreen}
+    />
+    <Route
+      path="/app/resources/your/view/:id"
+      exact
+      component={YourResourceViewScreen}
+    />
   </TabPanel>
-)
+);
 
-const EducationPanel = (props) => (
+const EducationPanel = props => (
   <TabPanel>
     <Container>
       <Header>
@@ -211,18 +223,20 @@ const EducationPanel = (props) => (
           <Text>CEUs</Text>
         </Body>
       </Header>
-      <Content style={{
-        backgroundColor: '#0fc'
-      }}>
-        <View style={{flex:1}}>
+      <Content
+        style={{
+          backgroundColor: "#0fc"
+        }}
+      >
+        <View style={{ flex: 1 }}>
           <Text>CEU text is ac</Text>
         </View>
       </Content>
     </Container>
   </TabPanel>
-)
+);
 
-const ProfilePanel = (props) => (
+const ProfilePanel = props => (
   <TabPanel>
     <Container>
       <Header>
@@ -230,72 +244,97 @@ const ProfilePanel = (props) => (
           <Text>Profile</Text>
         </Body>
       </Header>
-      <Content style={{
-        backgroundColor: '#f0c'
-      }}>
-        <View style={{flex:1}}>
-          <Link to="/log-out"><Text>Log out</Text></Link>
+      <Content
+        style={{
+          backgroundColor: "#f0c"
+        }}
+      >
+        <View style={{ flex: 1 }}>
+          <Link to="/log-out">
+            <Text>Log out</Text>
+          </Link>
           <Text>Profile text is cc</Text>
         </View>
       </Content>
     </Container>
   </TabPanel>
-)
+);
 
-const DataTabs = (props) => {
+const DataTabs = props => {
   return (
     <Tabs initialIndex="0">
       <TabPanels>
-        <Route path="/app/feed" render={(props) => (
-          <FeedPanel {...props} />
-        )}/>
-        <Route path="/app/resources" render={(props) => (
-          <ResourcesPanel {...props} />
-        )}/>
-        <Route path="/app/education" render={(props) => (
-          <EducationPanel {...props} />
-        )}/>
-        <Route path="/app/profile" render={(props) => (
-          <ProfilePanel {...props} />
-        )}/>
+        <Route path="/app/feed" render={props => <FeedPanel {...props} />} />
+        <Route
+          path="/app/resources"
+          render={props => <ResourcesPanel {...props} />}
+        />
+        <Route
+          path="/app/education"
+          render={props => <EducationPanel {...props} />}
+        />
+        <Route
+          path="/app/profile"
+          render={props => <ProfilePanel {...props} />}
+        />
       </TabPanels>
       <TabList>
         <Tab route="/app/feed" label="Feed">
-          <Route path={'/app/feed'}>
+          <Route path={"/app/feed"}>
             {({ match }) => (
               <Container style={styles.tab}>
-                <Icon name='home' active={!!match} style={{textAlign:'center'}} />
-                <Text style={{ fontSize: 9, textAlign:'center'}}>Feed</Text>
+                <Icon
+                  name="home"
+                  active={!!match}
+                  style={{ textAlign: "center" }}
+                />
+                <Text style={{ fontSize: 9, textAlign: "center" }}>Feed</Text>
               </Container>
             )}
           </Route>
         </Tab>
         <Tab route="/app/resources/your" label="Resources">
-          <Route path={'/app/resources'}>
+          <Route path={"/app/resources"}>
             {({ match, history }) => (
               <Container style={styles.tab}>
-                <Icon name="pin" active={!!match} style={{textAlign:'center'}} />
-                <Text style={{ fontSize: 9, textAlign:'center'}}>Resources</Text>
+                <Icon
+                  name="pin"
+                  active={!!match}
+                  style={{ textAlign: "center" }}
+                />
+                <Text style={{ fontSize: 9, textAlign: "center" }}>
+                  Resources
+                </Text>
               </Container>
             )}
           </Route>
         </Tab>
         <Tab route="/app/education" label="Education">
-          <Route path={'/app/education'}>
+          <Route path={"/app/education"}>
             {({ match }) => (
               <Container style={styles.tab}>
-                <Icon name="school" active={!!match} style={{textAlign:'center'}} />
-                <Text style={{ fontSize: 9, textAlign:'center'}}>CEUs</Text>
+                <Icon
+                  name="school"
+                  active={!!match}
+                  style={{ textAlign: "center" }}
+                />
+                <Text style={{ fontSize: 9, textAlign: "center" }}>CEUs</Text>
               </Container>
             )}
           </Route>
         </Tab>
         <Tab route="/app/profile" label="Profile">
-          <Route path={'/app/profile'}>
+          <Route path={"/app/profile"}>
             {({ match }) => (
               <Container style={styles.tab}>
-                <Icon name="contact" active={!!match} style={{textAlign:'center'}} />
-                <Text style={{ fontSize: 9, textAlign:'center'}}>Profile</Text>
+                <Icon
+                  name="contact"
+                  active={!!match}
+                  style={{ textAlign: "center" }}
+                />
+                <Text style={{ fontSize: 9, textAlign: "center" }}>
+                  Profile
+                </Text>
               </Container>
             )}
           </Route>
@@ -305,7 +344,7 @@ const DataTabs = (props) => {
   );
 };
 
-const App = withRouter((props) => {
+const App = withRouter(props => {
   return <DataTabs />;
 });
 
@@ -320,23 +359,22 @@ const LogOut = () => {
   );
 };
 
-const ApolloApp = () =>
+const ApolloApp = () => (
   <ApolloProvider client={client}>
     <Root>
       <NativeRouter>
         <Container>
-          <Route path="/sign-up" component={SignUpScreen} />
-          <Route path="/log-in" component={LogInScreen} />
-          <Route path="/log-out" component={LogOut} />
-          <Route path="/app" component={App} />
-          <Redirect
-            to={{
-              pathname: "/sign-up"
-            }}
-          />
+          <Switch>
+            <Route path="/sign-up" component={SignUpScreen} />
+            <Route path="/log-in" component={LogInScreen} />
+            <Route path="/log-out" component={LogOut} />
+            <Route path="/app" component={App} />
+            <Route render={() => <Redirect to="/log-in" />} />
+          </Switch>
         </Container>
       </NativeRouter>
     </Root>
-  </ApolloProvider>;
+  </ApolloProvider>
+);
 
 export default ApolloApp;
